@@ -16,11 +16,14 @@ function salvarTarefas(){
 
 function adicionarTarefa(){
     let input = document.getElementById("inputTarefa")
-    let texto = input.value.trim()
+    let tarefa = {
+        texto: input.value.trim(),
+        concluida: false
+    }
 
-    if (texto === "") return
+    if (tarefa.texto === "") return
     
-    tarefas.push(texto)
+    tarefas.push(tarefa)
     input.value = ""
 
     salvarTarefas()
@@ -33,7 +36,7 @@ function renderizar(){
 
     tarefas.forEach((tarefa, indice) => {
         let li = document.createElement("li")
-        li.textContent = tarefa
+        li.textContent = tarefa.texto
 
         let botao = document.createElement("button")
         botao.textContent = "Excluir"
@@ -44,6 +47,18 @@ function renderizar(){
             renderizar()
         }
 
+        let checkbox = document.createElement("input")
+        checkbox.type = "checkbox"
+
+        checkbox.checked = tarefa.concluida
+
+        checkbox.onchange = () => {
+            tarefa.concluida = checkbox.checked
+            salvarTarefas()
+            renderizar()
+        }
+
+        li.append(checkbox)
         li.append(botao)
         lista.append(li)
     })
