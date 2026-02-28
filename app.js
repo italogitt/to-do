@@ -1,14 +1,29 @@
 let tarefas = []
 
+document.addEventListener("DOMContentLoaded", () => {
+
+    let tarefasSalvas = localStorage.getItem("tarefas")
+
+    if (tarefasSalvas){
+        tarefas = JSON.parse(tarefasSalvas)
+        renderizar()
+    }
+})
+
+function salvarTarefas(){
+    localStorage.setItem("tarefas", JSON.stringify(tarefas))
+}
+
 function adicionarTarefa(){
     let input = document.getElementById("inputTarefa")
-    let texto = input.value
+    let texto = input.value.trim()
 
     if (texto === "") return
-
+    
     tarefas.push(texto)
-
     input.value = ""
+
+    salvarTarefas()
     renderizar()
 }
 
@@ -17,6 +32,8 @@ function renderizar(){
     lista.innerHTML = ""
 
     tarefas.forEach(tarefa => {
-        lista.innerHTML += `<li>${tarefa}</li>`
-    });
+        let li = document.createElement("li")
+        li.textContent = tarefa
+        lista.append(li)
+    })
 }
