@@ -31,9 +31,21 @@ function renderizar(){
     let lista = document.getElementById("lista")
     lista.innerHTML = ""
 
-    tarefas.forEach(tarefa => {
+    tarefas.forEach((tarefa, indice) => {
         let li = document.createElement("li")
         li.textContent = tarefa
+
+        let botao = document.createElement("button")
+        botao.textContent = "Excluir"
+
+        botao.onclick = () => {
+            tarefas.splice(indice, 1)
+            salvarTarefas()
+            renderizar()
+        }
+
+        li.append(botao)
         lista.append(li)
     })
 }
+
