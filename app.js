@@ -9,6 +9,14 @@ document.addEventListener("DOMContentLoaded", () => {
         tarefas = JSON.parse(tarefasSalvas)
         renderizar()
     }
+
+    let input = document.getElementById("inputTarefa")
+
+    input.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            adicionarTarefa()
+        }
+    })
 })
 
 function salvarTarefas(){
