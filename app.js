@@ -1,4 +1,5 @@
 let tarefas = []
+let filtroAtual = "todas"
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -30,13 +31,23 @@ function adicionarTarefa(){
     renderizar()
 }
 
+function mudarFiltro(novoFiltro){
+    filtroAtual = novoFiltro
+    renderizar()
+}
+
 function renderizar(){
     let lista = document.getElementById("lista")
     lista.innerHTML = ""
 
     tarefas.forEach((tarefa, indice) => {
+        if (filtroAtual === "pendentes" && tarefa.concluida === true){
+            return
+        } else if (filtroAtual === "concluidas" && tarefa.concluida === false){
+            return
+        } 
+
         let li = document.createElement("li")
-        li.textContent = tarefa.texto
 
         let botao = document.createElement("button")
         botao.textContent = "Excluir"
@@ -58,7 +69,16 @@ function renderizar(){
             renderizar()
         }
 
+        if (tarefa.concluida === true ){
+            li.style.textDecoration = "line-through"
+            li.style.opacity = "0.6"
+        } else {
+            li.style.textDecoration = "none"
+            li.style.opacity = "1"
+        }
+
         li.append(checkbox)
+        li.append(document.createTextNode(" " + tarefa.texto))
         li.append(botao)
         lista.append(li)
     })
