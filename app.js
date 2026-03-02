@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let input = document.getElementById("inputTarefa")
 
-    input.addEventListener("keypress", (e) => {
+    input.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
             adicionarTarefa()
 
@@ -88,11 +88,17 @@ function renderizar(){
         botaoEditar.onclick = () => {
             let inputEdicao = document.createElement("input")
             inputEdicao.value = tarefa.texto
+            inputEdicao.focus()
 
-            inputEdicao.addEventListener("keypress", (e) => {
+            inputEdicao.addEventListener("keydown", (e) => {
                 if (e.key === "Enter"){
-                    tarefa.texto = inputEdicao.value.trim()
+                    let novoTexto = inputEdicao.value.trim()
+                    if (novoTexto === "") return
+                    tarefa.texto = novoTexto
                     salvarTarefas()
+                    renderizar()
+                }  
+                if (e.key === "Escape") {
                     renderizar()
                 }
             })
@@ -101,7 +107,9 @@ function renderizar(){
             botaoSalvar.textContent = "Salvar"
 
             botaoSalvar.onclick = () => {
-                tarefa.texto = inputEdicao.value
+                let novoTexto = inputEdicao.value.trim()
+                if (novoTexto === "") return
+                tarefa.texto = novoTexto
                 salvarTarefas()
                 renderizar()
             }
