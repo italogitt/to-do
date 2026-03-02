@@ -1,0 +1,158 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", Roboto, sans-serif;
+    background: linear-gradient(135deg, #4f8cff, #6be3ff);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 60px;
+}
+
+.container {
+    background: white;
+    width: 430px;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+    animation: fadeIn .5s ease;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(15px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 18px;
+    color: #2c3e50;
+}
+
+#inputTarefa {
+    width: 70%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: .2s;
+}
+
+#inputTarefa:focus {
+    border-color: #4f8cff;
+    box-shadow: 0 0 0 3px rgba(79,140,255,0.15);
+}
+
+button {
+    padding: 11px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: .2s;
+}
+
+button[onclick="adicionarTarefa()"] {
+    background: #4f8cff;
+    color: white;
+}
+
+button[onclick="adicionarTarefa()"]:hover {
+    background: #2f6fe0;
+}
+
+button[onclick*="mudarFiltro"] {
+    background: #f1f4f9;
+    color: #444;
+    margin-top: 10px;
+}
+
+button[onclick*="mudarFiltro"]:hover {
+    background: #e2e8f5;
+}
+
+button[onclick="limparConcluidas()"] {
+    background: #ff7b7b;
+    color: white;
+}
+
+button[onclick="limparConcluidas()"]:hover {
+    background: #e45555;
+}
+
+ul {
+    list-style: none;
+    margin-top: 20px;
+}
+
+li {
+    background: #f7f9fc;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    transition: .2s;
+    animation: slideIn .25s ease;
+}
+
+@keyframes slideIn {
+    from {opacity: 0; transform: translateX(-10px);}
+    to {opacity: 1; transform: translateX(0);}
+}
+
+li:hover {
+    background: #eef3ff;
+}
+
+li span {
+    flex: 1;
+}
+
+li input[type="checkbox"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+li button {
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
+li button:nth-of-type(1) {
+    background: #ff6b6b;
+    color: white;
+}
+
+li button:nth-of-type(1):hover {
+    background: #d94a4a;
+}
+
+li button:nth-of-type(2) {
+    background: #ffd166;
+    color: #333;
+}
+
+li button:nth-of-type(2):hover {
+    background: #e6b84f;
+}
+
+li.concluida {
+    background: #e9fbe9;
+    color: #2e7d32;
+}
+
+#contador {
+    text-align: center;
+    margin-top: 14px;
+    color: #555;
+    font-size: 14px;
+}

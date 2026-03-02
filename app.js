@@ -131,8 +131,7 @@ function renderizar(){
         }
 
         if (tarefa.concluida === true ){
-            li.style.textDecoration = "line-through"
-            li.style.opacity = "0.6"
+            li.classList.add("concluida")
         } else {
             li.style.textDecoration = "none"
             li.style.opacity = "1"
