@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     input.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
             adicionarTarefa()
+
         }
     })
 })
@@ -50,7 +51,13 @@ function atualizarContador(){
     let pendentes = total - concluidas
 
     let contador = document.getElementById("contador")
-    contador.textContent = `Total: ${total} | Pedentes : ${pendentes} | Concluidas : ${concluidas}  `
+    contador.textContent = `Total: ${total} | Pendentes : ${pendentes} | Concluidas : ${concluidas}  `
+}
+
+function limparConcluidas(){
+    tarefas = tarefas.filter(t => !t.concluida)
+    salvarTarefas()
+    renderizar()
 }
 
 function renderizar(){
@@ -66,13 +73,42 @@ function renderizar(){
 
         let li = document.createElement("li")
 
-        let botao = document.createElement("button")
-        botao.textContent = "Excluir"
+        let botaoExcluir = document.createElement("button")
+        botaoExcluir.textContent = "Excluir"
 
-        botao.onclick = () => {
+        let botaoEditar= document.createElement("button")
+        botaoEditar.textContent = "Editar"
+
+        botaoExcluir.onclick = () => {
             tarefas.splice(indice, 1)
             salvarTarefas()
             renderizar()
+        }
+
+        botaoEditar.onclick = () => {
+            let inputEdicao = document.createElement("input")
+            inputEdicao.value = tarefa.texto
+
+            inputEdicao.addEventListener("keypress", (e) => {
+                if (e.key === "Enter"){
+                    tarefa.texto = inputEdicao.value.trim()
+                    salvarTarefas()
+                    renderizar()
+                }
+            })
+
+            let botaoSalvar = document.createElement("button")
+            botaoSalvar.textContent = "Salvar"
+
+            botaoSalvar.onclick = () => {
+                tarefa.texto = inputEdicao.value
+                salvarTarefas()
+                renderizar()
+            }
+
+            li.innerHTML = ""
+            li.append(inputEdicao)
+            li.append(botaoSalvar)
         }
 
         let checkbox = document.createElement("input")
@@ -96,7 +132,8 @@ function renderizar(){
 
         li.append(checkbox)
         li.append(document.createTextNode(" " + tarefa.texto))
-        li.append(botao)
+        li.append(botaoExcluir)
+        li.append(botaoEditar)
         lista.append(li)
     })
 
