@@ -44,6 +44,15 @@ function mudarFiltro(novoFiltro){
     renderizar()
 }
 
+function atualizarContador(){
+    let total = tarefas.length
+    let concluidas = tarefas.filter(t => t.concluida).length
+    let pendentes = total - concluidas
+
+    let contador = document.getElementById("contador")
+    contador.textContent = `Total: ${total} | Pedentes : ${pendentes} | Concluidas : ${concluidas}  `
+}
+
 function renderizar(){
     let lista = document.getElementById("lista")
     lista.innerHTML = ""
@@ -90,5 +99,7 @@ function renderizar(){
         li.append(botao)
         lista.append(li)
     })
+
+    atualizarContador()
 }
 
